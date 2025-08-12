@@ -5,11 +5,26 @@
 {% endblock %}
 
 {% block body %}
-    <div class="content">
-        <h1>Edit your Task</h1>
-        <form action="/edit/{{ edit_task.id }}" method="POST">
-            <input type="text" name="content" id="content" value="{{ edit_task.content }}" />
-            <input type="submit" value="Edit" />
-        </form>
-    </div>
+<div class="content">
+    <h2>Edit Task</h2>
+    <form method="POST">
+        <input type="text" name="content" value="{{ task.content }}" placeholder="Task" required/>
+        <input type="text" name="person" value="{{ task.person }}" placeholder="Person Name" required/>
+        <label>
+            Completed:
+            <input type="checkbox" name="completed" value="1" {% if task.completed %}checked{% endif %}/>
+        </label>
+        <label>
+            Reschedule:
+            <input type="checkbox" name="reschedule" value="1" {% if task.reschedule %}checked{% endif %}/>
+        </label>
+        <label>
+            Scheduled At:
+            <input type="datetime-local" name="scheduled_at"
+                   value="{{ task.scheduled_at.strftime('%Y-%m-%dT%H:%M') if task.scheduled_at else '' }}"/>
+        </label>
+        <input type="submit" value="Update Task"/>
+    </form>
+    <a href="/">Back</a>
+</div>
 {% endblock %}

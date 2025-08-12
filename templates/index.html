@@ -8,7 +8,26 @@
 {% block body%}
 
 <div class="content">
-        <h1>Task Smash 2.0</h1>
+        <h1>Task Haven</h1>
+
+        <!-- Add the form here -->
+        <form action="/" method="POST">
+            <input type="text" name="content" id="content" placeholder="Task"/>
+            <input type="text" name="person" id="person" placeholder="Person Name"/>
+            <label>
+                Completed:
+                <input type="checkbox" name="completed" value="1"/>
+            </label>
+            <label>
+                Reschedule:
+                <input type="checkbox" name="reschedule" value="1"/>
+            </label>
+            <label>
+                Scheduled At:
+                <input type="datetime-local" name="scheduled_at"/>
+            </label>
+            <input type="submit" value="Add Task" id="btn_add"/>
+        </form>
 
         {% if tasks |length <1%}
         <h3>No tasks available.  Create one here!</h3>
@@ -17,26 +36,36 @@
         <table>
                 <tr>
                     <th>Task</th>
+                    <th>Person</th>
+                    <th>Completed</th>
+                    <th>Reschedule</th>
+                    <th>Scheduled At</th>
                     <th>Added</th>
                     <th>Actions</th>
                 </tr>
                 {% for task in tasks %}
                 <tr>
                     <td>{{ task.content }}</td>
+                    <td>{{ task.person }}</td>
+                    <td>{{ 'Yes' if task.completed else 'No' }}</td>
+                    <td>{{ 'Yes' if task.reschedule else 'No' }}</td>
+                    <td>
+                        {% if task.scheduled_at %}
+                            {{ task.scheduled_at.strftime('%Y-%m-%d %H:%M') }}
+                        {% else %}
+                            Not scheduled
+                        {% endif %}
+                    </td>
                     <td>{{ task.created_at.strftime('%Y-%m-%d') }}</td>
                     <td>
-                        <a href="/delete/{{ task.id }}" >Delete</a>>
+                        <a href="/delete/{{ task.id }}">Delete</a>
                         <br/>
-                        <a href="/edit/{{ task.id }}" >Edit</a>
+                        <a href="/edit/{{ task.id }}">Edit</a>
                     </td>
                 </tr>
                 {% endfor %}
         </table>
         {% endif %}
-        <form action="/" method="POST" >
-            <input type="text" name="content" id="content"/>
-            <input type="submit" value="Add Task" id ="btn_add"/>
-        </form>
             
     </div>
 {% endblock %}
