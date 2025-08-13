@@ -87,5 +87,15 @@ def edit(id):
             return f"Error: {e}"
     return render_template("edit.html", task=task)
 
+@app.route("/complete/<int:id>", methods=['POST'])
+def complete(id):
+    task = MyTask.query.get_or_404(id)
+    task.completed = True
+    try:
+        db.session.commit()
+        return redirect('/')
+    except Exception as e:
+        return f"Error: {e}"
+
 if __name__ == "__main__":
     app.run(debug=True)

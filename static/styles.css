@@ -64,4 +64,19 @@ body {
 }
 .content #btn_add:hover {
   background-color: #27ae60;
+}
+.complete-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 5px;
+    border-radius: 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.complete-btn.completed {
+    background-color: #27ae60;
 }/*# sourceMappingURL=styles.css.map */
